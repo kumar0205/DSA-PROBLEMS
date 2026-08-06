@@ -1,39 +1,36 @@
-/**
- * Definition for singly-linked list.
- * public class ListNode {
- *     int val;
- *     ListNode next;
- *     ListNode() {}
- *     ListNode(int val) { this.val = val; }
- *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
- * }
- */
 class Solution {
     public ListNode rotateRight(ListNode head, int k) {
-        if(head == null || head.next == null ) return head;
-        if(k == 0) return head;
+        if (head == null || head.next == null) return head;
+        if (k == 0) return head;
+        
         ListNode temp = head;
-        int c= 0;
-        while(temp!=null) {
+        int c = 0;
+        while (temp != null) {
             c++;
             temp = temp.next;
         }
-        if(c<=k){
-            if(k%c == 0 || c%k == 0 ) return head;
-        }
+        
+        // FIX 1: Simplify logic. Any rotation greater than size 'c' wraps around.
+        k = k % c;
+        if (k == 0) return head; 
+        
         ListNode prev = null;
         ListNode ans = null;
         temp = head;
-        int i =0;
-        while(temp!=null){
-            if((k+i++)%c == 0){
-                prev.next=null;
-                ans =temp;
+        int i = 0;
+        
+        while (temp != null) {
+            // FIX 2: Correct index matching logic to find the cutting point safely.
+            if ((k + i) % c == 0 && prev != null) {
+                prev.next = null;
+                ans = temp;
             }
+            i++; // Increment properly after the conditional check
             prev = temp;
             temp = temp.next;
-            if(temp == null ) {
-                prev.next =head;
+            
+            if (temp == null) {
+                prev.next = head;
                 break;
             }
         }
