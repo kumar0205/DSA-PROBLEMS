@@ -11,18 +11,25 @@
 class Solution {
     public int pairSum(ListNode head) {
         ListNode temp = head;
+        ListNode slow = head;
+        ListNode fast = head;
         int c = 0;
-        while(temp!=null){
-            c++;
-            temp = temp.next;
+        // while(temp!=null){
+        //     c++;
+        //     temp = temp.next;
+        // }
+        // int mid = c/2;
+        // temp=head;
+        // for(int i=0;i<mid;i++){
+        //     temp = temp.next;
+        // }
+        while(fast!=null && fast.next!=null){
+            slow= slow.next;
+            fast = fast.next.next;
         }
-        int mid = c/2;
-        temp=head;
-        for(int i=0;i<mid;i++){
-            temp = temp.next;
-        }
+        //slow points to middle element eg =2;
         ListNode prev = null;
-        ListNode curr = temp;
+        ListNode curr = slow;
         ListNode next= null;
         while(curr!=null){
             next = curr.next;
@@ -30,10 +37,10 @@ class Solution {
             prev = curr;
             curr=next;
         }
+        //5->4->2<-1 && null<-2<-1 
         ListNode tail=prev;
-        temp = head;
         int sum=0;
-        for(int i=0;i<mid;i++){
+        while(tail!=null){
             sum=Math.max(head.val+tail.val,sum);
             head=head.next;
             tail=tail.next;
