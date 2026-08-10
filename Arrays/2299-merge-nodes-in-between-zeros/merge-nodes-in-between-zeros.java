@@ -11,18 +11,20 @@
 class Solution {
     public ListNode mergeNodes(ListNode head) {
         int cursum=0;
-        head = head.next;
-        ListNode dummy = new ListNode(0);
-        ListNode temp1 = dummy;
-        while(head!=null){
-            if(head.val!=0) cursum+=head.val;
+        ListNode temp1 = head;
+        ListNode temp = head.next;
+        // ListNode dummy = new ListNode(0);
+        while(temp!=null){
+            if(temp.val!=0) cursum+=temp.val;
             else{
-                dummy.next = new ListNode(cursum);
-                dummy = dummy.next;
+                temp1.val =cursum;
+                if(temp.next==null) break;
+                temp1 = temp1.next;
                 cursum=0;
             } 
-            head = head.next;
+            temp = temp.next;
         }
-        return temp1.next;
+        temp1.next=null;
+        return head;
     }
 }
