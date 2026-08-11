@@ -12,13 +12,18 @@ class Solution {
                 break;
             }
         }
-        Arrays.sort(nums);
-        for(int i = 0;i<n;i++){
-            if(sum==nums[i]){
-                sum++;
-            }
-            else if(sum<nums[i]) break;
+        // Arrays.sort(nums);
+        // for(int i = 0;i<n;i++){
+        //     if(sum==nums[i]){
+        //         sum++;
+        //     }
+        //     else if(sum<nums[i]) break;
+        // }
+        HashSet<Integer> seen = new HashSet<>();
+        for(int num:nums){
+            seen.add(num);
         }
+        while(seen.contains(sum)) sum++;
         return sum;
 
     }
