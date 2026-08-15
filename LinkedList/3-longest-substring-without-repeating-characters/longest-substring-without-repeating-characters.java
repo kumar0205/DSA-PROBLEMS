@@ -1,25 +1,23 @@
 class Solution {
     public int lengthOfLongestSubstring(String s) {
-        Map<Character,Integer> hash = new HashMap<>();
-        int n=s.length(),length=0,l=0,r=0;
-        while(r<n){
+        // Size 128 covers all standard characters safely
+        int[] freq = new int[128];
+        int n = s.length(), length = 0, l = 0, r = 0;
+        
+        while (r < n) {
             char c = s.charAt(r);
-            hash.put(c,hash.getOrDefault(c,0)+1);
-            if(hash.get(c)==1){
-                length = Math.max(length,r-l+1);
+            freq[c] = freq[c] + 1; // hash.put(c, hash.getOrDefault(c,0)+1)
+            
+            if (freq[c] == 1) { // hash.get(c)==1
+                length = Math.max(length, r - l + 1);
             }
-            else{
-                while(s.charAt(l)!=c){
-                    hash.put(s.charAt(l),hash.get(s.charAt(l))-1);
-                    if (hash.get(s.charAt(l)) == 0) {
-                        hash.remove(s.charAt(l));
-                    }
+            else {
+                while (s.charAt(l) != c) {
+                    freq[s.charAt(l)] = freq[s.charAt(l)] - 1; // hash.put(..., hash.get(...)-1)
+                    // Note: Array elements automatically stay at 0, no remove() needed
                     l++;
                 }
-                hash.put(s.charAt(l),hash.get(s.charAt(l))-1);
-                if (hash.get(s.charAt(l)) == 0) {
-                        hash.remove(s.charAt(l));
-                    }
+                freq[s.charAt(l)] = freq[s.charAt(l)] - 1; // hash.put(..., hash.get(...)-1)
                 l++;
             }
             r++;
@@ -27,6 +25,7 @@ class Solution {
         return length;
     }
 }
+
 
 
 
