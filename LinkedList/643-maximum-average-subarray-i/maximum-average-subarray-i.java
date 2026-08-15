@@ -5,13 +5,13 @@ class Solution {
         while(r<k){
             sum+=nums[r++];
         }
-        maxavg = sum/k;
+        maxavg = sum;
         while(r<n){
             sum+=nums[r]-nums[l];
-            maxavg= Math.max(maxavg,sum/k);
+            maxavg= Math.max(maxavg,sum);
             r++;
             l++;
         }
-        return maxavg;
+        return maxavg/k;
     }
 }
