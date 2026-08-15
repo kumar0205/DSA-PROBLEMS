@@ -6,20 +6,13 @@ class Solution {
         
         while (r < n) {
             char c = s.charAt(r);
-            freq[c] = freq[c] + 1; // hash.put(c, hash.getOrDefault(c,0)+1)
-            
-            if (freq[c] == 1) { // hash.get(c)==1
-                length = Math.max(length, r - l + 1);
-            }
-            else {
-                while (s.charAt(l) != c) {
-                    freq[s.charAt(l)] = freq[s.charAt(l)] - 1; // hash.put(..., hash.get(...)-1)
-                    // Note: Array elements automatically stay at 0, no remove() needed
-                    l++;
-                }
-                freq[s.charAt(l)] = freq[s.charAt(l)] - 1; // hash.put(..., hash.get(...)-1)
+            freq[c]++; // hash.put(c, hash.getOrDefault(c,0)+1)
+            while(freq[c]>1){
+                char l1 = s.charAt(l);
+                freq[l1]=freq[l1]-1;
                 l++;
             }
+            length = Math.max(length,r-l+1);
             r++;
         }
         return length;
