@@ -9,9 +9,9 @@ class Solution {
             }
         }
         for(int i=0;i<n;i++){
-            if(zc>1) nums[i]=0;
-            else if(zc==1 && zeroindex==i) nums[i]=prod;
-            else if(zc==1) nums[i]=0;
+            // if(zc>1) nums[i]=0;
+            if(zc==1 && zeroindex==i) nums[i]=prod;
+            else if(zc==1 || zc>1) nums[i]=0;
             else{
                 nums[i]=prod/nums[i];
             } 
