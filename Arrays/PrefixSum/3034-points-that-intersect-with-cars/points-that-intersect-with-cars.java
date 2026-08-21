@@ -8,7 +8,7 @@ class Solution {
             if(nums.get(i).get(0)>le){
                 points+=nums.get(i).get(0)-(le+1);
             }
-            le=Math.max(le,nums.get(i).get(1));
+            if(le<nums.get(i).get(1)) le=nums.get(i).get(1);
         }
         return le-points;
     }
