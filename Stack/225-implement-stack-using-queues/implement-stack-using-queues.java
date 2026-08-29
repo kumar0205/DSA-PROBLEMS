@@ -1,35 +1,36 @@
 class MyStack {
-    Queue<Integer> q;
+    Queue<Integer> q1;
+    Queue<Integer> q2;
+
     public MyStack() {
-        q = new LinkedList<>();
+        q1 = new LinkedList<>();
+        q2 = new LinkedList<>();
     }
     
     public void push(int x) {
-        // s=q.size();
-        q.add(x);
-        for(int i=0;i<q.size()-1;i++){
-            q.add(q.poll());
+        // Step 1: Put the newest element into the empty secondary queue
+        q2.add(x);
+        
+        // Step 2: Transfer all older elements behind the new one
+        while (!q1.isEmpty()) {
+            q2.add(q1.poll());
         }
+        
+        // Step 3: Swap the references (q1 always holds the main stack)
+        Queue<Integer> temp = q1;
+        q1 = q2;
+        q2 = temp;
     }
     
     public int pop() {
-        return q.poll();
+        return q1.poll();
     }
     
     public int top() {
-        return q.peek();
+        return q1.peek();
     }
     
     public boolean empty() {
-        return q.isEmpty();
+        return q1.isEmpty();
     }
 }
-
-/**
- * Your MyStack object will be instantiated and called as such:
- * MyStack obj = new MyStack();
- * obj.push(x);
- * int param_2 = obj.pop();
- * int param_3 = obj.top();
- * boolean param_4 = obj.empty();
- */
