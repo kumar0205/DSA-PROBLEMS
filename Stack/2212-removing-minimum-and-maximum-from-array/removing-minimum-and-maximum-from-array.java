@@ -1,29 +1,38 @@
 class Solution {
     public int minimumDeletions(int[] nums) {
         int n = nums.length;
-        if (n <= 1) return n;
+        int mine = nums[0], maxe = nums[0], mini = 0, maxi = 0;
         
-        int mini = 0, maxi = 0;
-        // Find indices of the minimum and maximum elements
+        // Your exact original loop
         for (int i = 1; i < n; i++) {
-            if (nums[i] < nums[mini]) mini = i;
-            if (nums[i] > nums[maxi]) maxi = i;
+            if (mine > nums[i]) {
+                mine = nums[i];
+                mini = i;
+            }
+            if (maxe < nums[i]) {
+                maxe = nums[i];
+                maxi = i;
+            }
         }
         
-        // Let's call the smaller index 'left' and the larger index 'right'
+        // Map to left and right so we always know which one comes first
         int left = Math.min(mini, maxi);
         int right = Math.max(mini, maxi);
         
-        // Scenario 1: Delete both from the left side
+        // Calculate the costs of the 3 real scenarios
         int bothFromLeft = right + 1;
-        
-        // Scenario 2: Delete both from the right side
         int bothFromRight = n - left;
+        int pincer = (left + 1) + (n - right);
         
-        // Scenario 3: Delete one from the left and one from the right
-        int oneFromEachSide = (left + 1) + (n - right);
-        
-        // Return the absolute minimum of these three choices
-        return Math.min(bothFromLeft, Math.min(bothFromRight, oneFromEachSide));
+        // Your if/else structure applied to the costs instead of 'mid'
+        if (bothFromLeft <= bothFromRight && bothFromLeft <= pincer) {
+            return bothFromLeft;
+        } 
+        else if (bothFromRight <= bothFromLeft && bothFromRight <= pincer) {
+            return bothFromRight;
+        } 
+        else {
+            return pincer;
+        }
     }
 }
