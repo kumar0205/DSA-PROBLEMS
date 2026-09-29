@@ -16,16 +16,16 @@
 class Solution {
     public TreeNode searchBST(TreeNode root, int val) {
         if(root ==null) return null;
-        TreeNode ls=null;
-        TreeNode rs=null;
+        // TreeNode ls=null;
+        // TreeNode rs=null;
         if(root.val<val){
-            rs=searchBST(root.right,val);
+            return searchBST(root.right,val);
         }
         if(root.val>val){
-            ls=searchBST(root.left,val);
+            return searchBST(root.left,val);
         }
-        if(root.val==val) return root;
-        if(ls!=null) return ls;
-        return rs;
+        return root;
+    //     if(ls!=null) return ls;
+    //     return rs;
     }
 }
